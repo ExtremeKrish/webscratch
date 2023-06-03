@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <style>
+  *{
+  box-sizing:border-box;
+  }
+  body{
+  margin:0;
+  }
+    .container {
+      display: flex;
+      height:80vh;
+    }
+.btm{
+display:flex;
+height:20vh;
+      background-color: #f5f5f5;
+      border:1px solid #ccc;
+      flex-direction:row;
+      overflow:scroll;
+}
+.btm > div{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:0 12px;
+border:1px solid #ccc;
+}
+.btm > div > svg{
+width:38px;
+height:38px;
+fill:#202020;
+margin-bottom:8px;
+}
+.btm > div > span{
+
+}
+    .left-panel {
+      width: 100px;
+      background-color: #f5f5f5;
+
+    }
+
+    .pick-button {
+      margin-bottom: 10px;
+      padding:16px;
+    }
+
+    .right-panel {
+      flex-grow: 1;
+      min-height: 200px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      outline:none;
+      overflow:scroll;
+    }
+.divi{
+border:1px solid black;
+padding:16px;
+display:flex;
+}
+button.divi{
+background:grey;
+}
+.code{
+position:fixed;
+height:100%;
+width:100%;
+top:0;
+left:0;
+display:none;
+}
+.code textarea {
+background:black;
+color:white;
+height:100%;
+width:100%;
+white-space:nowrap;
+overflow:scroll;
+}
+.code button{
+position:absolute;
+height:56px;
+width:56px;
+border-radius:56px;
+right:16px;
+border:none;
+font-size:24px;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <button class="pick-button" data-type="div">DIV</button>
+            <button class="pick-button" data-type="img">IMG</button>
+                  <button class="pick-button" data-type="button">Button</button>
+                                    <button class="pick-button" data-type="input">Input</button>
+                <button onclick="blink(); document.querySelector('.code').style.display = 'block'">Code</button>
+    </div>
+    <div class="right-panel" contenteditable="true"  id="rightPanel"></div>
+  </div>
+<div class="btm" >
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-web" width="24" height="24" viewBox="0 0 24 24"><path d="M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
+<span>Src</span>
+</div>
+
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-arrow-expand-vertical" width="24" height="24" viewBox="0 0 24 24"><path d="M13,9V15H16L12,19L8,15H11V9H8L12,5L16,9H13M4,2H20V4H4V2M4,20H20V22H4V20Z" /></svg>
+<span>Height</span>
+</div>
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-arrow-expand-horizontal" width="24" height="24" viewBox="0 0 24 24"><path d="M9,11H15V8L19,12L15,16V13H9V16L5,12L9,8V11M2,20V4H4V20H2M20,20V4H22V20H20Z" /></svg>
+<span>Width</span>
+</div>
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-arrow-expand-all" width="24" height="24" viewBox="0 0 24 24"><path d="M9.5,13.09L10.91,14.5L6.41,19H10V21H3V14H5V17.59L9.5,13.09M10.91,9.5L9.5,10.91L5,6.41V10H3V3H10V5H6.41L10.91,9.5M14.5,13.09L19,17.59V14H21V21H14V19H17.59L13.09,14.5L14.5,13.09M13.09,9.5L17.59,5H14V3H21V10H19V6.41L14.5,10.91L13.09,9.5Z" /></svg>
+<span>Padding</span>
+</div>
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-table-split-cell" width="24" height="24" viewBox="0 0 24 24"><path d="M19 14H21V20H3V14H5V18H19V14M3 4V10H5V6H19V10H21V4H3M11 11V13H8V15L5 12L8 9V11H11M16 11V9L19 12L16 15V13H13V11H16Z" /></svg>
+<span>Margin</span>
+</div>
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-crop-square" width="24" height="24" viewBox="0 0 24 24"><path d="M18,18H6V6H18M18,4H6A2,2 0 0,0 4,6V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18V6C20,4.89 19.1,4 18,4Z" /></svg>
+<span>Orientation</span>
+</div>
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-arrow-up-down-bold" width="24" height="24" viewBox="0 0 24 24"><path d="M10,8H6L12,2L18,8H14V16H18L12,22L6,16H10V8Z" /></svg>
+<span>HEIGHT</span>
+</div>
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="mdi mdi-delete-outline" width="24" height="24" viewBox="0 0 24 24"><path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" /></svg>
+<span>Delete</span>
+</div>
+</div>
+<section class="code" >
+                <button onclick="document.querySelector('.code').style.display = 'none'">×</button>
+<textarea id="code" >
+
+</textarea>
+</section>
+  <script>
+      var pickButtons = document.querySelectorAll(".pick-button");
+      var rightPanel = document.getElementById("rightPanel");
+      var btm = document.querySelector(".btm");
+      var nodes = document.querySelectorAll(".btm div");
+      var isTouchDevice = false;
+	  var selectedDiv;
+var bak_selectedDiv = rightPanel;
+      btm.style.display = "none";
+      // Click or touch event listener for pick buttons
+      var type;
+      pickButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+        	button.style.background = "green";
+        	isTouchDevice = true;
+        	btm.style.display = "none";
+        				    bak_selectedDiv.style.border = "1px solid black";
+          	type = event.target.getAttribute("data-type");
+          	blink();
+        });
+      });
+      
+		rightPanel.addEventListener('click', function(event) {
+        	selectedDiv = event.target;
+         	if(isTouchDevice == true){
+         		var div = document.createElement(type);
+				div.className = "divi";
+				if(type == "img"){
+				div.setAttribute("src","file:///storage/emulated/0/Pictures/MaterialIcon/image/image.png")
+				}
+				var key = generateRandomString();
+				div.setAttribute("data-type",key);
+				div.classList.add(key);
+				selectedDiv.appendChild(div);
+				isTouchDevice = false;
+				pickButtons.forEach(function(button) {
+					button.style.background = "white";
+				 bak_selectedDiv.style.border = "1px solid black";
+				});
+			} else {
+			    bak_selectedDiv.style.border = "1px solid black";
+       			btm.style.display = "flex";
+       			bak_selectedDiv = selectedDiv;
+       			bak_selectedDiv.style.border = "1px solid blue";
+       			refresh(selectedDiv);
+			}
+			blink();
+		});
+nodes[0].addEventListener('click', function(event) {
+	selectedDiv.setAttribute("src", prompt("Enter Source"));
+		
+});
+			nodes[1].addEventListener('click', function(event) {
+				selectedDiv.style.height = prompt("Enter Height");
+		
+			});
+		nodes[2].addEventListener('click', function(event) {
+				selectedDiv.style.width = prompt("Enter Width");
+				
+		});
+		nodes[3].addEventListener('click', function(event) {
+				selectedDiv.style.padding = prompt("Enter Padding");
+				
+		});
+		nodes[4].addEventListener('click', function(event) {
+				selectedDiv.style.margin = prompt("Enter Margin");
+				
+		});
+nodes[5].addEventListener('click', function(event) {
+		selectedDiv.style.flexDirection = prompt("Enter (row/column)");
+		
+});
+nodes[7].addEventListener('click', function(event) {
+selectedDiv.remove()
+		
+});
+function refresh(item){
+switch(item.target){
+case "div":
+alert("div");
+break;
+}
+
+}
+function blink(){
+var startpart = '<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n';
+var endpart = '\n</body>\n</html>';
+var bodyCode = rightPanel.innerHTML.replaceAll(">",">\n");
+var endcode = startpart + bodyCode + convertInlineCssToInternal(bodyCode) + endpart;
+document.getElementById("code").value = endcode;
+//document.getElementById("code").value = convertInlineCssToInternal(endcode);
+}
+function generateRandomString() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < 5; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
+}
+
+// Example usage
+function convertInlineCssToInternal(htmlCode) {
+var cssCode ="";
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = htmlCode;
+
+  const elementsWithInlineCss = tempDiv.querySelectorAll('[style]');
+
+  elementsWithInlineCss.forEach((element) => {
+    const inlineStyles = element.getAttribute('style');
+
+const cssRule = `.${element.getAttribute('data-type')} {\n ${inlineStyles.replaceAll(';',';\n')} }`;
+console.log(cssRule);
+
+ cssCode = cssCode + cssRule;
+    element.removeAttribute('style');
+  });
+
+  return '<style>\n'+ cssCode + '\n</style>';
+}
+
+// Example usage
+
+
+  </script>
+</body>
+</html>
